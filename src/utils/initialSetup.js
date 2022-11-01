@@ -50,11 +50,12 @@ export const initialSetup = async () => {
 
   const person = await Person.create({
     firstName: "Kevin",
-    lastName: "Tejada",
+    lastName: "Portillo",
     dui: "12345678-9",
     dateOfBirth: "1998-12-12",
     phoneNumber: "12345678",
     userId: user.id,
+    photoUrl: null,
   });
 
   await Address.create({

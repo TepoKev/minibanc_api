@@ -22,7 +22,7 @@ export const sigin = async (req, res) => {
       dateOfBirth,
       phoneNumber,
       addresses,
-      photoUrl
+      photoUrl,
     } = req.body;
 
     if (!email) {
@@ -215,10 +215,10 @@ export const login = async (req, res) => {
       attributes: ["email", "password"],
     });
     if (!userFound) {
-      return res.status(400).json({ message: "User not found" });
+      return res.status(401).json({ message: "User not found" });
     }
     if (!compareHash(password, userFound.password)) {
-      return res.status(400).json({ message: "Invalid credentials" });
+      return res.status(401).json({ message: "Invalid credentials" });
     }
     const user = await User.findOne({
       where: { email },
@@ -232,6 +232,7 @@ export const login = async (req, res) => {
             "dateOfBirth",
             "phoneNumber",
             "dui",
+            "photoUrl",
           ],
           include: [
             {
@@ -286,11 +287,9 @@ export const checkEmail = async (req, res) => {
     }
     const user = await User.findOne({ where: { email } });
     if (user) {
-      return res.status(400).json({ message: "Email already exists" });
+      return res.status(200).json({ message: "avaliable" });
     }
-    return res
-      .status(200)
-      .json({ message: "This email address is not registered" });
+    return res.status(400).json({ message: "not avaliable" });
   } catch (error) {
     res.status(500).json({ message: "Error en el servidor" });
   }
