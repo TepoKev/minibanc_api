@@ -4,11 +4,11 @@ import Person from "../models/Person";
 import User from "../models/user";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
-import UserRole from "../models/UserRole";
 import { compareHash } from "../utils/tools";
 import Province from "../models/Province";
 import Country from "../models/Country";
 import Role from "../models/Role";
+import Gender from "../models/Gender";
 dotenv.config();
 export const sigin = async (req, res) => {
   try {
@@ -22,9 +22,8 @@ export const sigin = async (req, res) => {
       dateOfBirth,
       phoneNumber,
       addresses,
-      photoUrl,
+      photoUrl
     } = req.body;
-
     if (!email) {
       return res
         .status(400)
@@ -140,8 +139,10 @@ export const sigin = async (req, res) => {
         return "location is required for the request";
       }
     });
-    if (errorMessage.length > 0 && errorMessage[0])
-      return res.status(400).json({ message: errorMessage[0] });
+    if (errorMessage) {
+      if (errorMessage.length > 0 && errorMessage[0])
+        return res.status(400).json({ message: errorMessage[0] });
+    }
     try {
       const result = await sequelize.transaction(async (t) => {
         const user = await User.create({ email, password });
@@ -246,12 +247,15 @@ export const login = async (req, res) => {
                 },
               ],
             },
+            {
+              model: Gender,
+              attributes: ["name"],
+            },
           ],
         },
         {
-          model: UserRole,
-          attributes: ["roleId"],
-          include: [{ model: Role, attributes: ["name"] }],
+          model: Role,
+          attributes: ["name"],
         },
       ],
     });

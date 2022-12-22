@@ -5,11 +5,24 @@ import Person from "../models/Person";
 import Province from "../models/Province";
 import Role from "../models/Role";
 import User from "../models/user";
-import UserRole from "../models/UserRole";
+import LegalEntity from "../models/LegalEntity";
+import Subsidiaire from "../models/Subsidiarie";
 import { createHash } from "./tools";
+import Category from "../models/Category";
+import TypeCredit from "../models/TypeCredit";
+import Employee from "../models/Employee";
+import FixedAsset from "../models/FixedAsset";
+import Credit from "../models/Credit";
+import Refinancing from "../models/Refinancing";
+import Quota from "../models/Quota";
+import MoratoriumInterest from "../models/MoratoriumInterest";
+import Debtor from "../models/Debtor";
 
 export const initialSetup = async () => {
   //Model synchronization
+  await TypeCredit.sync({ force: true });
+  await Category.sync({ force: true });
+  await Subsidiaire.sync({ force: true });
   await Role.sync({ force: true });
   await Country.sync({ force: true });
   await Gender.sync({ force: true });
@@ -19,10 +32,15 @@ export const initialSetup = async () => {
   await User.sync({ force: true });
 
   await Person.sync({ force: true });
+  await Employee.sync({ force: true });
+  await FixedAsset.sync({ force: true });
+  await LegalEntity.sync({ force: true });
   await Address.sync({ force: true });
-
-  await UserRole.sync({ force: true });
-
+  await Credit.sync({ force: true });
+  await Refinancing.sync({ force: true });
+  await Quota.sync({ force: true });
+  await MoratoriumInterest.sync({ force: true });
+  await Debtor.sync({ force: true });
   const elSalvador = await Country.create({ name: "El Salvador" });
   await Country.create({ name: "Estados Unidos" });
   await Country.create({ name: "Honduras" });
@@ -33,11 +51,11 @@ export const initialSetup = async () => {
     countryId: elSalvador.id,
   });
 
-  await Gender.create({ name: "Masculino" });
+  const masculino = await Gender.create({ name: "Masculino" });
   await Gender.create({ name: "Femenino" });
   await Gender.create({ name: "Otro" });
 
-  await Role.create({ name: "SuperAdmin" });
+  const superAdmin = await Role.create({ name: "SuperAdmin" });
   await Role.create({ name: "Admin" });
   await Role.create({ name: "Seller" });
   await Role.create({ name: "Customer" });
@@ -46,6 +64,7 @@ export const initialSetup = async () => {
     email: "tepokev@gmail.com",
     password: createHash("2eA$%dve923B.,"),
     active: true,
+    roleId: superAdmin.id,
   });
 
   const person = await Person.create({
@@ -56,6 +75,7 @@ export const initialSetup = async () => {
     phoneNumber: "12345678",
     userId: user.id,
     photoUrl: null,
+    genderId: masculino.id,
   });
 
   await Address.create({
@@ -65,5 +85,4 @@ export const initialSetup = async () => {
     personId: person.id,
     location: "Casa",
   });
-  await UserRole.create({ userId: 1, roleId: 1 });
 };

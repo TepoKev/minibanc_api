@@ -11,10 +11,6 @@ const Province = sequelize.define(
       allowNull: false,
       autoIncrement: true,
     },
-    countryId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
     name: {
       type: DataTypes.STRING(100),
       allowNull: false,
