@@ -51,38 +51,116 @@ export const initialSetup = async () => {
     countryId: elSalvador.id,
   });
 
-  const masculino = await Gender.create({ name: "Masculino" });
-  await Gender.create({ name: "Femenino" });
-  await Gender.create({ name: "Otro" });
+  await Gender.create({ id: 1, name: "Masculino" });
+  await Gender.create({ id: 2, name: "Femenino" });
+  await Gender.create({ id: 3, name: "Otro" });
 
-  const superAdmin = await Role.create({ name: "SuperAdmin" });
-  await Role.create({ name: "Admin" });
-  await Role.create({ name: "Seller" });
-  await Role.create({ name: "Customer" });
+  await Role.create({ id: 1, name: "SuperAdmin" });
+  await Role.create({ id: 2, name: "Admin" });
+  await Role.create({ id: 3, name: "Seller" });
+  await Role.create({ id: 4, name: "Customer" });
 
-  const user = await User.create({
+  const superUser = await User.create({
     email: "tepokev@gmail.com",
     password: createHash("2eA$%dve923B.,"),
     active: true,
-    roleId: superAdmin.id,
+    roleId: 1,
   });
 
-  const person = await Person.create({
+  const superPerson = await Person.create({
     firstName: "Kevin",
     lastName: "Portillo",
     dui: "12345678-9",
     dateOfBirth: "1998-12-12",
     phoneNumber: "12345678",
-    userId: user.id,
+    userId: superUser.id,
     photoUrl: null,
-    genderId: masculino.id,
+    genderId: 1,
   });
 
   await Address.create({
     street: "Calle 1",
     number: "123",
     provinceId: sanVicente.id,
-    personId: person.id,
+    personId: superPerson.id,
+    location: "Casa",
+  });
+
+  const adminUser = await User.create({
+    email: "oscar@gmail.com",
+    password: createHash("123456789"),
+    active: true,
+    roleId: 2,
+  });
+
+  const adminPerson = await Person.create({
+    firstName: "Oscar",
+    lastName: "Peraza",
+    dui: "12545778-9",
+    dateOfBirth: "1998-12-12",
+    phoneNumber: "74342332",
+    userId: adminUser.id,
+    photoUrl: null,
+    genderId: 1,
+  });
+
+  await Address.create({
+    street: "Calle 12",
+    number: "321",
+    provinceId: sanVicente.id,
+    personId: adminPerson.id,
+    location: "Casa",
+  });
+
+  const sellerUser = await User.create({
+    email: "steven@gmail.com",
+    password: createHash("123456789"),
+    active: true,
+    roleId: 3,
+  });
+
+  const sellerPerson = await Person.create({
+    firstName: "Steven",
+    lastName: "Lainez",
+    dui: "12505771-0",
+    dateOfBirth: "1998-12-12",
+    phoneNumber: "72321121",
+    userId: sellerUser.id,
+    photoUrl: null,
+    genderId: 1,
+  });
+
+  await Address.create({
+    street: "Calle 123",
+    number: "3214",
+    provinceId: sanVicente.id,
+    personId: sellerPerson.id,
+    location: "Casa",
+  });
+
+  const customerUser = await User.create({
+    email: "elsy@gmail.com",
+    password: createHash("123456789"),
+    active: true,
+    roleId: 4,
+  });
+
+  const customerPerson = await Person.create({
+    firstName: "Elsy",
+    lastName: "Duran",
+    dui: "12501771-5",
+    dateOfBirth: "1998-12-12",
+    phoneNumber: "72630121",
+    userId: customerUser.id,
+    photoUrl: null,
+    genderId: 2,
+  });
+
+  await Address.create({
+    street: "Calle 1232",
+    number: "321423",
+    provinceId: sanVicente.id,
+    personId: customerPerson.id,
     location: "Casa",
   });
 };

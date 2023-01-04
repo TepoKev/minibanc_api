@@ -4,6 +4,10 @@ import cors from "cors";
 import morgan from "morgan";
 import { initialSetup } from "./utils/initialSetup";
 import authRoutes from "./routes/auth.routes";
+import genderRoutes from "./routes/gender.routes";
+import roleRoutes from "./routes/role.routes";
+import countryRoutes from "./routes/country.routes";
+import userRoutes from "./routes/user.routes";
 
 const app = express();
 
@@ -24,5 +28,9 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/auth", authRoutes);
+app.use("/api/gender", genderRoutes);
+app.use("/api/role", roleRoutes);
+app.use("/api/country", countryRoutes);
+app.use("/api/user", userRoutes);
 
 export default app;

@@ -7,5 +7,6 @@ authRoutes.post("/signin", [tokenVerify], authController.sigin);
 authRoutes.post("/login", authController.login);
 authRoutes.post("/validationToken", authController.validationToken);
 authRoutes.post("/checkEmail", authController.checkEmail);
+authRoutes.post("/createuser", [tokenVerify], authController.createUser);
 
 export default authRoutes;
