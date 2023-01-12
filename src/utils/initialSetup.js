@@ -17,12 +17,14 @@ import Refinancing from "../models/Refinancing";
 import Quota from "../models/Quota";
 import MoratoriumInterest from "../models/MoratoriumInterest";
 import Debtor from "../models/Debtor";
+import Customer from "../models/Customer";
 
 export const initialSetup = async () => {
   //Model synchronization
   await TypeCredit.sync({ force: true });
   await Category.sync({ force: true });
   await Subsidiaire.sync({ force: true });
+
   await Role.sync({ force: true });
   await Country.sync({ force: true });
   await Gender.sync({ force: true });
@@ -32,7 +34,10 @@ export const initialSetup = async () => {
   await User.sync({ force: true });
 
   await Person.sync({ force: true });
+
   await Employee.sync({ force: true });
+  await Customer.sync({ force: true });
+
   await FixedAsset.sync({ force: true });
   await LegalEntity.sync({ force: true });
   await Address.sync({ force: true });
@@ -41,6 +46,11 @@ export const initialSetup = async () => {
   await Quota.sync({ force: true });
   await MoratoriumInterest.sync({ force: true });
   await Debtor.sync({ force: true });
+
+  await Subsidiaire.create({ id: 0, name: "San Vicente" });
+  await Subsidiaire.create({ id: 1, name: "San Salvador" });
+  await Subsidiaire.create({ id: 2, name: "Santa Miguel" });
+
   const elSalvador = await Country.create({ name: "El Salvador" });
   await Country.create({ name: "Estados Unidos" });
   await Country.create({ name: "Honduras" });
@@ -60,6 +70,11 @@ export const initialSetup = async () => {
   await Role.create({ id: 3, name: "Seller" });
   await Role.create({ id: 4, name: "Customer" });
 
+  await TypeCredit.create({ id: 1, name: "Crédito de Consumo" });
+  await TypeCredit.create({ id: 2, name: "Crédito Hipotecario" });
+  await TypeCredit.create({ id: 3, name: "Crédito de Vehículo" });
+  await TypeCredit.create({ id: 4, name: "Crédito de Educación" });
+
   const superUser = await User.create({
     email: "tepokev@gmail.com",
     password: createHash("2eA$%dve923B.,"),
@@ -76,6 +91,11 @@ export const initialSetup = async () => {
     userId: superUser.id,
     photoUrl: null,
     genderId: 1,
+  });
+
+  await Employee.create({
+    personId: superPerson.id,
+    subsidiarieId: 0,
   });
 
   await Address.create({
@@ -104,6 +124,11 @@ export const initialSetup = async () => {
     genderId: 1,
   });
 
+  await Employee.create({
+    personId: adminPerson.id,
+    subsidiarieId: 1,
+  });
+
   await Address.create({
     street: "Calle 12",
     number: "321",
@@ -128,6 +153,11 @@ export const initialSetup = async () => {
     userId: sellerUser.id,
     photoUrl: null,
     genderId: 1,
+  });
+
+  await Employee.create({
+    personId: sellerPerson.id,
+    subsidiarieId: 2,
   });
 
   await Address.create({
@@ -156,6 +186,10 @@ export const initialSetup = async () => {
     genderId: 2,
   });
 
+  await Customer.create({
+    personId: customerPerson.id,
+  });
+
   await Address.create({
     street: "Calle 1232",
     number: "321423",
@@ -163,4 +197,11 @@ export const initialSetup = async () => {
     personId: customerPerson.id,
     location: "Casa",
   });
+
+  await Category.create({ name: "Automovil" });
+  await Category.create({ name: "Moto" });
+  await Category.create({ name: "Camioneta" });
+  await Category.create({ name: "Camion" });
+  await Category.create({ name: "Maquinaria" });
+  await Category.create({ name: "Otros" });
 };

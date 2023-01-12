@@ -10,6 +10,8 @@ import Province from "../models/Province";
 import Country from "../models/Country";
 import Role from "../models/Role";
 import Gender from "../models/Gender";
+import Employee from "../models/Employee";
+import Customer from "../models/Customer";
 
 dotenv.config();
 
@@ -413,6 +415,12 @@ export const login = async (req, res) => {
             {
               model: Gender,
               attributes: ["name"],
+            },
+            {
+              model: Employee,
+            },
+            {
+              model: Customer,
             },
           ],
         },

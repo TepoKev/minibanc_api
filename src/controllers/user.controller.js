@@ -2,6 +2,8 @@ import Person from "../models/Person";
 import User from "../models/user";
 import Role from "../models/Role";
 import Gender from "../models/Gender";
+import Customer from "../models/Customer";
+import Employee from "../models/Employee";
 
 export const getUsers = async (req, res) => {
   try {
@@ -12,7 +14,11 @@ export const getUsers = async (req, res) => {
         {
           model: Person,
           attributes: { exclude: ["userId", "genderId"] },
-          include: { model: Gender },
+          include: [
+            { model: Gender },
+            { model: Customer },
+            { model: Employee },
+          ],
         },
         { model: Role },
       ],

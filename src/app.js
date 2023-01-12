@@ -8,6 +8,8 @@ import genderRoutes from "./routes/gender.routes";
 import roleRoutes from "./routes/role.routes";
 import countryRoutes from "./routes/country.routes";
 import userRoutes from "./routes/user.routes";
+import categoryRoutes from "./routes/category.routes";
+import fixedassetRoutes from "./routes/fixedasset.routes";
 
 const app = express();
 
@@ -32,5 +34,7 @@ app.use("/api/gender", genderRoutes);
 app.use("/api/role", roleRoutes);
 app.use("/api/country", countryRoutes);
 app.use("/api/user", userRoutes);
+app.use("/api/category", categoryRoutes);
+app.use("/api/fixedasset", fixedassetRoutes);
 
 export default app;

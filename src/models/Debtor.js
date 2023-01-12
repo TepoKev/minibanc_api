@@ -18,10 +18,4 @@ const Debtor = sequelize.define(
     }
 );
 
-Credit.hasMany(Debtor, { foreignKey: "creditId" });
-Debtor.belongsTo(Credit, { foreignKey: "creditId" });
-
-Person.hasMany(Debtor, { foreignKey: "personId" });
-Debtor.belongsTo(Person, { foreignKey: "personId" });
-
 export default Debtor;

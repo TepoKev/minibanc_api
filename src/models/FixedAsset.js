@@ -16,7 +16,7 @@ const FixedAsset = sequelize.define(
       type: DataTypes.STRING(100),
       allowNull: false,
     },
-    amount: {
+    price: {
       type: DataTypes.DECIMAL(10, 2),
       allowNull: false,
     },
@@ -24,7 +24,7 @@ const FixedAsset = sequelize.define(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    registrationDate: {
+    purchaseDate: {
       type: DataTypes.DATE,
       allowNull: false,
     },
@@ -35,7 +35,7 @@ const FixedAsset = sequelize.define(
     },
     catalogNumber: {
       type: DataTypes.STRING(1000),
-      allowNull: false,
+      allowNull: true,
     },
   },
   {
