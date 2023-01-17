@@ -23,6 +23,11 @@ const Quota = sequelize.define(
       type: DataTypes.DATE,
       allowNull: true,
     },
+    status: {
+      type: DataTypes.STRING(20),
+      allowNull: false,
+      defaultValue: "Pendiente",
+    },
   },
   {
     tableName: "quotas",

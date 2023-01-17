@@ -175,6 +175,11 @@ export const createUser = async (req, res) => {
             location: address.location,
           });
         });
+        if (roleId < 4) {
+          await Employee.create({ personId: personalData.id });
+        } else {
+          await Customer.create({ personId: personalData.id });
+        }
         return user.email;
       });
       return res.status(200).json({ email: result });

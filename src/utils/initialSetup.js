@@ -16,36 +16,35 @@ import Credit from "../models/Credit";
 import Refinancing from "../models/Refinancing";
 import Quota from "../models/Quota";
 import MoratoriumInterest from "../models/MoratoriumInterest";
-import Debtor from "../models/Debtor";
 import Customer from "../models/Customer";
 
 export const initialSetup = async () => {
   //Model synchronization
-  await TypeCredit.sync({ force: true });
-  await Category.sync({ force: true });
-  await Subsidiaire.sync({ force: true });
+  const force = true;
+  await TypeCredit.sync({ force });
+  await Category.sync({ force });
+  await Subsidiaire.sync({ force });
 
-  await Role.sync({ force: true });
-  await Country.sync({ force: true });
-  await Gender.sync({ force: true });
+  await Role.sync({ force });
+  await Country.sync({ force });
+  await Gender.sync({ force });
 
-  await Province.sync({ force: true });
+  await Province.sync({ force });
 
-  await User.sync({ force: true });
+  await User.sync({ force });
 
-  await Person.sync({ force: true });
+  await Person.sync({ force });
 
-  await Employee.sync({ force: true });
-  await Customer.sync({ force: true });
+  await Employee.sync({ force });
+  await Customer.sync({ force });
 
-  await FixedAsset.sync({ force: true });
-  await LegalEntity.sync({ force: true });
-  await Address.sync({ force: true });
-  await Credit.sync({ force: true });
-  await Refinancing.sync({ force: true });
-  await Quota.sync({ force: true });
-  await MoratoriumInterest.sync({ force: true });
-  await Debtor.sync({ force: true });
+  await FixedAsset.sync({ force });
+  await LegalEntity.sync({ force });
+  await Address.sync({ force });
+  await Credit.sync({ force });
+  await Refinancing.sync({ force });
+  await Quota.sync({ force });
+  await MoratoriumInterest.sync({ force });
 
   await Subsidiaire.create({ id: 0, name: "San Vicente" });
   await Subsidiaire.create({ id: 1, name: "San Salvador" });
@@ -165,36 +164,6 @@ export const initialSetup = async () => {
     number: "3214",
     provinceId: sanVicente.id,
     personId: sellerPerson.id,
-    location: "Casa",
-  });
-
-  const customerUser = await User.create({
-    email: "elsy@gmail.com",
-    password: createHash("123456789"),
-    active: true,
-    roleId: 4,
-  });
-
-  const customerPerson = await Person.create({
-    firstName: "Elsy",
-    lastName: "Duran",
-    dui: "12501771-5",
-    dateOfBirth: "1998-12-12",
-    phoneNumber: "72630121",
-    userId: customerUser.id,
-    photoUrl: null,
-    genderId: 2,
-  });
-
-  await Customer.create({
-    personId: customerPerson.id,
-  });
-
-  await Address.create({
-    street: "Calle 1232",
-    number: "321423",
-    provinceId: sanVicente.id,
-    personId: customerPerson.id,
     location: "Casa",
   });
 
